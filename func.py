@@ -1,23 +1,23 @@
 def available_resolutions(video):
     resolutions = []
-    if len(video[0]) > 0:
+    if video[0] != None:
         resolutions.append('144p')
-    if len(video[1]) > 0:
+    if video[1] != None:
         resolutions.append('240p')
-    if len(video[2]) > 0:
+    if video[2] != None:
         resolutions.append('360p')
-    if len(video[3]) > 0:
+    if video[3] != None:
         resolutions.append('480p')
-    if len(video[4]) > 0:
+    if video[4] != None:
         resolutions.append('720p')
-    if len(video[5]) > 0:
+    if video[5] != None:
         resolutions.append('720p60fps')
-    if len(video[6]) > 0:
+    if video[6] != None:
         resolutions.append('1080p')
-    if len(video[7]) > 0:
+    if video[7] != None:
         resolutions.append('1080p60fps')
-    if len(video[8]) > 0:
+    if video[8] != None:
         resolutions.append('1440p')
-    if len(video[9]) > 0:
+    if video[9] != None:
         resolutions.append('2160p')
     return resolutions

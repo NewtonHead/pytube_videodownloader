@@ -28,9 +28,10 @@ if which == 'mp4':
     choice = input('Which resolution you wish to download?: ')
 
     if choice not in resolutions:
-        print('Resolution not available!')
+        print('Invalid input!')
     else:
-        video[resolutions.index(choice)][0].download()
+        destination = '/home/user/pythonprojects/pythontube/downloads/video'
+        video[resolutions.index(choice)].download(output_path=destination)
 
 elif which == 'mp3':
     audio = yt.streams.filter(only_audio=True).first()
@@ -39,6 +40,7 @@ elif which == 'mp3':
     base, ext = os.path.splitext(out_file)
     new_file = base + '.mp3'
     os.rename(out_file, new_file)
+
 
 
 

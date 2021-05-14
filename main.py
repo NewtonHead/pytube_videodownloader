@@ -32,6 +32,7 @@ if which == 'mp4':
     else:
         destination = '/home/user/pythonprojects/pythontube/downloads/video'
         video[resolutions.index(choice)].download(output_path=destination)
+        print('Download succesfull, saved on ' + destination)
 
 elif which == 'mp3':
     audio = yt.streams.filter(only_audio=True).first()
@@ -40,6 +41,7 @@ elif which == 'mp3':
     base, ext = os.path.splitext(out_file)
     new_file = base + '.mp3'
     os.rename(out_file, new_file)
+    print('Download succesfull, saved on ' + destination)
 
 
 

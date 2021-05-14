@@ -1,56 +1,44 @@
 from pytube import YouTube
+from func import available_resolutions
+import os
 
-url = 'https://www.youtube.com/watch?v=LXb3EKWsInQ&t=1s'
+url = input('Enter video url: ')
 yt = YouTube(url)
 
-video = [yt.streams.filter(file_extension='mp4', res='144p'),
-        yt.streams.filter(file_extension='mp4', res='240p'),
-        yt.streams.filter(file_extension='mp4', res='360p'),
-        yt.streams.filter(file_extension='mp4', res='480p'),
-        yt.streams.filter(file_extension='mp4', res='720p'),
-        yt.streams.filter(file_extension='mp4', res='720p', fps=60),
-        yt.streams.filter(file_extension='mp4', res='1080p'),
-        yt.streams.filter(file_extension='mp4', res='1080p', fps=60),
-        yt.streams.filter(file_extension='mp4', res='1440p'),
-        yt.streams.filter(file_extension='mp4', res='2160p')]
+which = input('mp4 or mp3?: ')
 
-def available_resolutions(video):
-    resolutions = []
-    if len(video[0]) > 0:
-        resolutions.append('144p')
-    if len(video[1]) > 0:
-        resolutions.append('240p')
-    if len(video[2]) > 0:
-        resolutions.append('360p')
-    if len(video[3]) > 0:
-        resolutions.append('480p')
-    if len(video[4]) > 0:
-        if video[4] != video[5]:
-            resolutions.append('720p')
-    if len(video[5]) > 0:
-        resolutions.append('720p60fps')
-    if len(video[6]) > 0:
-        if video[6] != video[7]:
-            resolutions.append('1080p')
-    if len(video[7]) > 0:
-        resolutions.append('1080p60fps')
-    if len(video[8]) > 0:
-        resolutions.append('1440p')
-    if len(video[9]) > 0:
-        resolutions.append('2160p')
-    return resolutions
+if which == 'mp4':
 
-resolutions = available_resolutions(video)
+    video = [yt.streams.filter(file_extension='mp4', res='144p').first(),
+            yt.streams.filter(file_extension='mp4', res='240p').first(),
+            yt.streams.filter(file_extension='mp4', res='360p').first(),
+            yt.streams.filter(file_extension='mp4', res='480p').first(),
+            yt.streams.filter(file_extension='mp4', res='720p').first(),
+            yt.streams.filter(file_extension='mp4', res='720p', fps=60).first(),
+            yt.streams.filter(file_extension='mp4', res='1080p').first(),
+            yt.streams.filter(file_extension='mp4', res='1080p', fps=60).first(),
+            yt.streams.filter(file_extension='mp4', res='1440p').first(),
+            yt.streams.filter(file_extension='mp4', res='2160p').first()]
 
-for i in range(0, len(resolutions)):
-    print(resolutions[i])
+    resolutions = available_resolutions(video)
 
-choice = input('Which resolution you wish to download?: ')
+    for i in range(0, len(resolutions)):
+        print(resolutions[i])
 
-if choice not in resolutions:
-    print('Resolution not available!')
-else:
-    video[resolutions.index(choice)][0].download()
+    choice = input('Which resolution you wish to download?: ')
+
+    if choice not in resolutions:
+        print('Resolution not available!')
+    else:
+        video[resolutions.index(choice)][0].download()
+
+elif which == 'mp3':
+    audio = yt.streams.filter(only_audio=True).first()
+    destination = '/home/user/pythonprojects/pythontube/downloads/audio'
+    out_file = audio.download(output_path=destination)
+    base, ext = os.path.splitext(out_file)
+    new_file = base + '.mp3'
+    os.rename(out_file, new_file)
 
 
 
